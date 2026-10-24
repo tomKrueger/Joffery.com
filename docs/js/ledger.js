@@ -154,9 +154,9 @@
       });
       if (syncNote) {
         var messages = {
-          vanta: "Reading vendor & risk tasks from Vanta. Joffery surfaces what your team needs to act on — Vanta stays your system of record.",
-          drata: "Reading vendor & risk tasks from Drata. Joffery complements your compliance workflow; Drata remains authoritative.",
-          local: "No Vanta or Drata connected yet. Joffery holds your risk register and vendor list until you are ready to connect.",
+          vanta: "Connected to Vanta — Joffery shows what to do next; Vanta stays your main compliance tool.",
+          drata: "Connected to Drata — Joffery adds a simple to-do view on top of what Drata already tracks.",
+          local: "No Vanta or Drata yet — keep a simple risk and vendor list here until you connect one.",
         };
         syncNote.textContent = messages[src] || messages.local;
       }
@@ -371,6 +371,20 @@
   }
 
   loadDraft();
+
+  /* Hero feature cards → preview tab */
+  document.querySelectorAll("[data-jump-tab]").forEach(function (card) {
+    card.addEventListener("click", function (e) {
+      var tabId = card.getAttribute("data-jump-tab");
+      var tab = document.getElementById(tabId);
+      if (tab) {
+        e.preventDefault();
+        tab.click();
+        var tour = document.querySelector(".preview-section");
+        if (tour) tour.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
 
   /* FAQ accordion */
   document.querySelectorAll(".faq-item button").forEach(function (btn) {
